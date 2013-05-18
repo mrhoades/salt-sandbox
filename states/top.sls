@@ -1,6 +1,7 @@
 base:
   '*':
     - base
+    - users
   os-controller:
     - os.mysql
     - os.keystone

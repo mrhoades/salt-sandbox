@@ -5,3 +5,11 @@ keystone_repo:
     - target: /opt/stack/keystone
     - require:
       - pkg: git
+
+/etc/keystone/keystone.conf:
+  file:
+    - managed
+    - source: salt://os/keystone/keystone.conf
+    - user: root
+    - group: root
+    - mode: 644
