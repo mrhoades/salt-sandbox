@@ -81,3 +81,12 @@ boot all vms in a map: `salt-cloud -m $map_file -P`
 * lookup job: `salt-util jobs.lookup_jid $job_id`
 * signal job: `salt '*' saltutil.signal $job_id $signal_num`
 * kill job: `salt '*' saltutil.kill_job $job_id`
+
+
+### states
+
+* high state: `salt '*' state.highstate`
+* stagger updates: `salt '*' --batch 10% state.highstate`
+* single state: `salt os-controller state.sls os.mysql`
+* run from minion: `salt-call state.highstate`
+* test: `salt-call state.highstate test=True`
