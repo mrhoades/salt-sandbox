@@ -6,5 +6,6 @@ base:
     - os.mysql
     - os.keystone
     - os.glance
+    - os.nova
   'os-compute-*':
     - os.nova

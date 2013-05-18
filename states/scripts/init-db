@@ -1,11 +1,15 @@
 #!/bin/bash
-set -eux
+set -e
 
+if [ $# -ne 1 ]; then
+  echo "usage: init-db DB_PASS"
+  exit 1
+fi
 
-function create_db {
+db_pass=$1
+
+function grant_access {
   local sql="
-    drop database if exists $1;
-    create database if not exists $1;
     grant all on $1.* to '$2'@'*'         identified by '$3';
     grant all on $1.* to '$2'@'localhost' identified by '$3';
     grant all on $1.* to '$2'@'%'         identified by '$3';
@@ -13,22 +17,15 @@ function create_db {
   echo "$sql" | mysql
 }
 
-
-service mysql restart
-
-db_pass=$(os-config-applier --key database.password)
-os-config-applier --templates $(dirname $0)/../config
-
-create_db keystone keystone $db_pass
+grant_access keystone keystone $db_pass
 keystone-manage db_sync
 
-create_db glance glance $db_pass
+grant_access glance glance $db_pass
 glance-manage db_sync
 
-create_db cinder cinder $db_pass
-cinder-manage db sync
-
-create_db nova nova $db_pass
+grant_access nova nova $db_pass
 nova-manage db sync
 
-#create_db vs_quantum quantum $db_pass
+echo "abcdefg"
+uptime
+echo $0

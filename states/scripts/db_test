@@ -1,0 +1,38 @@
+#!/bin/bash
+uptime
+echo $0
+#set -e
+
+
+#echo {{ pillar['db-password'] }}
+#echo $not_set
+
+#function create_db {
+#  local sql="
+#    drop database if exists $1;
+#    create database if not exists $1;
+#    grant all on $1.* to '$2'@'*'         identified by '$3';
+#    grant all on $1.* to '$2'@'localhost' identified by '$3';
+#    grant all on $1.* to '$2'@'%'         identified by '$3';
+#    flush privileges;"
+#  echo "$sql" | mysql
+#}
+
+#service mysql restart
+
+#db_pass=$(os-config-applier --key database.password)
+#os-config-applier --templates $(dirname $0)/../config
+
+#create_db keystone keystone $db_pass
+#keystone-manage db_sync
+
+#create_db glance glance $db_pass
+#glance-manage db_sync
+
+#create_db cinder cinder $db_pass
+#cinder-manage db sync
+
+#create_db nova nova $db_pass
+#nova-manage db sync
+
+#create_db vs_quantum quantum $db_pass

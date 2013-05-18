@@ -23,7 +23,7 @@ glance_user:
     - source: salt://os/glance/glance-api-paste.ini
     - template: jinja
     - context:
-        auth_host: {{ pillar['auth_host'] }}
+        endpoints: {{ pillar['endpoints'] }}
         service_password: {{ pillar['service_password'] }}
 
 /etc/glance/glance-registry-paste.ini:
@@ -32,7 +32,7 @@ glance_user:
     - source: salt://os/glance/glance-registry-paste.ini
     - template: jinja
     - context:
-        auth_host: {{ pillar['auth_host'] }}
+        endpoints: {{ pillar['endpoints'] }}
         service_password: {{ pillar['service_password'] }}
 
 /etc/glance/glance-api.conf:
@@ -41,12 +41,10 @@ glance_user:
     - source: salt://os/glance/glance-api.conf
     - template: jinja
     - context:
-        auth_host: {{ pillar['auth_host'] }}
+        endpoints: {{ pillar['endpoints'] }}
         service_password: {{ pillar['service_password'] }}
-        db_host: {{ pillar['db_host'] }}
-        db_password: {{ pillar['db_password'] }}
-        rabbit_host: {{ pillar['rabbit_host'] }}
-        rabbit_password: {{ pillar['rabbit_password'] }}
+        db: {{ pillar['db'] }}
+        rabbit: {{ pillar['rabbit'] }}
 
 /etc/glance/policy.json:
   file:

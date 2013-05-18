@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "abcdefg"
+uptime
+echo $0

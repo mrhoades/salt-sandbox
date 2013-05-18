@@ -27,9 +27,14 @@ put the states and config data where salt looks for it:
 
 ### deploy openstack
 
+install software and config:
+
     salt-key -L              # verify that these are the hosts you really mean
     salt \* state.highstate  # install openstack
-    
+
+initialize state:
+
+    salt os-controller cmd.script salt://scripts/init-db
 
 ### clean up
 

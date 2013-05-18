@@ -27,8 +27,8 @@ keystone_user:
     - mode: 644
     - context:
         admin_token: {{ pillar['admin_token'] }}
-        db_host: {{ pillar['db_host'] }}
-        db_password: {{ pillar['db_password'] }}
+        endpoints: {{ pillar['endpoints'] }}
+        db: {{ pillar['db'] }}
 
 /etc/init/keystone.conf:
   file:
