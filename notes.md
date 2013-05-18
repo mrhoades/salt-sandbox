@@ -12,6 +12,7 @@ show pubkey: `salt-key -p hostname`
 === basic commands
 pingall: `salt \* test.ping`
 run command: `salt \* cmd.run uptime`
+install package: `salt \* pkg.install git`
 
 === salt-cloud
 
@@ -34,3 +35,14 @@ boot vms from profile: `salt-cloud -p $profile_name hostname_a hostname_b ...`
 boot vms in parallel: `salt-cloud -P -p $profile_name host-{1,2,3}`
 destroy vms by name: `salt-cloud -d hostname ...` or by regexp: `salt-cloud -d host-{1,2,3}`
 
+==== maps
+
+boot all vms in a map: `salt-cloud -m $map_file -P`
+
+== targeting
+glob: `salt 'os-*' test.ping`
+glob: `salt 'compute[1-5]' test.ping`
+regexp (`-E`): `salt -E 'db0-(test|prod)' test.ping`
+list (`-L`): `salt -L 'db0,db1' test.ping`
+ip (`-S`): `salt -S 10.4.123.17 grains.items`
+subnet (`-S`): `salt -S 10.0.0.0/24 test.ping
