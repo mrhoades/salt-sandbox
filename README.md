@@ -6,9 +6,31 @@ echohead's salt playground.
 
 ### install salt
 
-master: `bin/install-master`
-salt-cloud: `bin/install-saltcloud`
-minion: `bin/install-minion $master_host`
+turn this box into a salt master:
 
-`ln -s $(pwd)/states /srv/salt`
-`ln -s $(pwd)/pillar /srv/pillar`
+    bin/install-master
+
+configure salt cloud to run a bunch of cloud vms:
+
+    bin/install-saltcloud
+    # edit /etc/salt/cloud to add your openstack creds, etc.
+    # edit /etc/salt/cloud.profiles to include your image names, etc.
+
+put the states and config data where salt looks for it:
+
+    ln -s $(pwd)/states /srv/salt
+    ln -s $(pwd)/pillar /srv/pillar
+
+### spin up some vms
+
+    salt-cloud -m maps/three-node.map -P
+
+### deploy openstack
+
+    salt-key -L              # verify that these are the hosts you really mean
+    salt \* state.highstate  # install openstack
+    
+
+### clean up
+
+    salt-cloud -d os-controller os-compute-{0,1}
