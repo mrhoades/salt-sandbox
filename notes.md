@@ -9,9 +9,20 @@ show pending keys: `salt-key -L`
 
 
 ### basic commands
+
 * pingall: `salt \* test.ping`
 * run command: `salt \* cmd.run uptime`
 * install package: `salt \* pkg.install git`
+
+
+### modules:
+
+* help for all modules: `salt '*' sys.doc | less`
+* network (ifaces, macs, ips, arp, etc)
+* cmd (run, script, exec_code, run_stderr)
+* git
+* iptables
+
 
 ### salt-cloud
 
@@ -34,14 +45,25 @@ demo:
 * boot vms in parallel: `salt-cloud -P -p $profile_name host-{1,2,3}`
 * destroy vms by name: `salt-cloud -d hostname ...` or by regexp: `salt-cloud -d host-{1,2,3}`
 
-==== maps
+#### maps
 
 boot all vms in a map: `salt-cloud -m $map_file -P`
 
-== targeting
+
+### targeting
+
 * glob: `salt 'os-*' test.ping`
 * glob: `salt 'compute[1-5]' test.ping`
 * regexp (`-E`): `salt -E 'db0-(test|prod)' test.ping`
 * list (`-L`): `salt -L 'db0,db1' test.ping`
 * ip (`-S`): `salt -S 10.4.123.17 grains.items`
-* subnet (`-S`): `salt -S 10.0.0.0/24 test.ping
+* subnet (`-S`): `salt -S 10.0.0.0/24 test.ping`
+* grains (`-G`): `salt -G 'os:Ubuntu' test.ping`  `salt -G 'roles:compute' cmd.run uptime`
+* grains with regexp: `salt --grain-pcre 'os:Ubun.*' test.ping`
+
+
+### grains
+
+* list: `salt '*' grains.ls`
+* show: `salt '*' grains.items`
+
