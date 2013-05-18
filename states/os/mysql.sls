@@ -22,3 +22,13 @@ mysql:
       - pkg: mysql-server
     - watch:
       - file: /etc/mysql/my.cnf
+
+
+keystone:
+  mysql_database.present
+glance:
+  mysql_database.present
+nova:
+  mysql_database.present
+quantum:
+  mysql_database.present
