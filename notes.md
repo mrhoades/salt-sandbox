@@ -23,9 +23,11 @@ define vm profiles in /etc/salt/cloud.profiles:
 ```
 demo:
   provider: openstack
-  image: Ubuntu Server 12.04.2 LTS (amd64 20130318) - Partner Image
   size: standard.xsmall
+  image: Ubuntu Server 12.04.2 LTS (amd64 20130318) - Partner Image
   os: Ubuntu
+  ssh_username: ubuntu
+  sudo: true
 ```
 
 boot vms from profile: `salt-cloud -p $profile_name hostname_a hostname_b ...`
