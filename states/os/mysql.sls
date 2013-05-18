@@ -24,11 +24,15 @@ mysql:
       - file: /etc/mysql/my.cnf
 
 
-keystone:
-  mysql_database.present
-glance:
-  mysql_database.present
-nova:
-  mysql_database.present
-quantum:
-  mysql_database.present
+keystone-db:
+  mysql_database.present:
+    - name: keystone
+glance-db:
+  mysql_database.present:
+    - name: glance
+nova-db:
+  mysql_database.present:
+    - name: nova
+quantum-db:
+  mysql_database.present:
+    - name: quantum
