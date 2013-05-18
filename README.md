@@ -10,4 +10,4 @@ master: `bin/install-master`
 
 minion: `bin/install-minion $master_host`
 
-
+salt-cloud: `bin/install-saltcloud`
