@@ -18,11 +18,15 @@ show pending keys: `salt-key -L`
 ### modules:
 
 * help for all modules: `salt '*' sys.doc | less`
-* network (ifaces, macs, ips, arp, etc)
+* help for one module: `salt '*' sys.doc pkg`
+* network (interfaces, macs, ips, arp, subnets, etc)
 * cmd (run, script, exec_code, run_stderr)
+* pkg (install, list_pkgs, upgrade)
+* service (restart, get_enabled, get_all, status)
+* disk (usage)
 * git
 * iptables
-
+* `salt-cp '*' $local_path $remote_path
 
 ### salt-cloud
 
@@ -65,5 +69,15 @@ boot all vms in a map: `salt-cloud -m $map_file -P`
 ### grains
 
 * list: `salt '*' grains.ls`
-* show: `salt '*' grains.items`
+* show: `salt '*' grains.item os
+* show all: `salt '*' grains.items`
 
+
+### jobs
+
+* long job: `salt '*' test.sleep 60
+* list active jobs: `salt-run jobs.active`
+* list historical jobs: `salt-run jobs.list_jobs`
+* lookup job: `salt-util jobs.lookup_jid $job_id`
+* signal job: `salt '*' saltutil.signal $job_id $signal_num`
+* kill job: `salt '*' saltutil.kill_job $job_id`
