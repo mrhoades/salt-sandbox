@@ -1,0 +1,6 @@
+
+default:
+  - os-controller
+  - os-compute-0
+  - os-compute-1
+

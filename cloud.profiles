@@ -1,0 +1,8 @@
+
+default:
+  provider: openstack
+  size: standard.xsmall
+  image: Ubuntu Server 12.04.2 LTS (amd64 20130318) - Partner Image
+  ssh_username: ubuntu
+  sudo: true
+  os: Ubuntu
