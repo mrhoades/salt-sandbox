@@ -2,6 +2,7 @@
 
 init-keystone fails first time with 'Could not find service:'
 init-keystone does not run subsequent times unless run locally with salt-call.
+/var/lib/nova and /var/log/nova must depend on nova user for first run
 upload images to glance
 run nova-compute
 
