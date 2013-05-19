@@ -11,6 +11,7 @@ start quantum services
 * salt-cloud parallel build is busted: https://github.com/saltstack/salt-cloud/issues/549
 * salt state.highstate does not exit non-zero on failure.  see several github issues.
 * salt cmd.script does not handle exit codes correctly, either.
+* salt state.highstate does not exit error when bogus states are specified in top.sls.
 
 ## misc
 

@@ -20,7 +20,7 @@ nova_user:
 /etc/nova/nova.conf:
   file:
     - managed
-    - source: salt://os/nova/nova.conf
+    - source: salt://os/nova/etc/nova.conf
     - template: jinja
     - context:
         secrets: {{ pillar['secrets'] }}
@@ -30,40 +30,16 @@ nova_user:
 /etc/nova/logging.conf:
   file:
     - managed
-    - source: salt://os/nova/logging.conf
+    - source: salt://os/nova/etc/logging.conf
 
 /etc/nova/api-paste.ini:
   file:
     - managed
-    - source: salt://os/nova/api-paste.ini
+    - source: salt://os/nova/etc/api-paste.ini
     - context:
         secrets: {{ pillar['secrets'] }}
         endpoints: {{ pillar['endpoints'] }}
 
-/etc/init/nova-api.conf:
-  file:
-    - managed
-    - source: salt://os/nova/nova-api.upstart
-
-/etc/init/nova-cert.conf:
-  file:
-    - managed
-    - source: salt://os/nova/nova-cert.upstart
-
-/etc/init/nova-consoleauth.conf:
-  file:
-    - managed
-    - source: salt://os/nova/nova-consoleauth.upstart
-
-/etc/init/nova-scheduler.conf:
-  file:
-    - managed
-    - source: salt://os/nova/nova-scheduler.upstart
-
-/etc/init/nova-conductor.conf:
-  file:
-    - managed
-    - source: salt://os/nova/nova-conductor.upstart
 
 /var/lib/nova:
   file.directory:
@@ -72,38 +48,3 @@ nova_user:
 /var/log/nova:
   file.directory:
     - user: nova
-
-nova_api_service:
-  service:
-    - name: nova-api
-    - running
-    - watch:
-      - file: /etc/nova/nova.conf
-
-nova_cert_service:
-  service:
-    - name: nova-cert
-    - running
-    - watch:
-      - file: /etc/nova/nova.conf
-
-nova_consoleauth_service:
-  service:
-    - name: nova-consoleauth
-    - running
-    - watch:
-      - file: /etc/nova/nova.conf
-
-nova_scheduler_service:
-  service:
-    - name: nova-scheduler
-    - running
-    - watch:
-      - file: /etc/nova/nova.conf
-
-nova_conductor_service:
-  service:
-    - name: nova-conductor
-    - running
-    - watch:
-      - file: /etc/nova/nova.conf

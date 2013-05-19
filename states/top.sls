@@ -6,8 +6,8 @@ base:
     - os.mysql
     - os.keystone
     - os.glance
-    - os.nova
+    - os.nova.stateless
     - os.rabbit
     - os.client
   'os-compute-*':
-    - os.nova
+    - os.nova.compute
