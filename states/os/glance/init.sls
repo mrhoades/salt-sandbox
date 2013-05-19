@@ -24,7 +24,6 @@ glance_user:
     - template: jinja
     - context:
         endpoints: {{ pillar['endpoints'] }}
-        service_password: {{ pillar['service_password'] }}
 
 /etc/glance/glance-registry-paste.ini:
   file:
@@ -33,7 +32,6 @@ glance_user:
     - template: jinja
     - context:
         endpoints: {{ pillar['endpoints'] }}
-        service_password: {{ pillar['service_password'] }}
 
 /etc/glance/glance-api.conf:
   file:
@@ -42,9 +40,6 @@ glance_user:
     - template: jinja
     - context:
         endpoints: {{ pillar['endpoints'] }}
-        service_password: {{ pillar['service_password'] }}
-        db: {{ pillar['db'] }}
-        rabbit: {{ pillar['rabbit'] }}
 
 /etc/glance/policy.json:
   file:

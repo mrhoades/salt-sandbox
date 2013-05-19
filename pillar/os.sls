@@ -1,5 +1,11 @@
-service_password: blarg
-admin_token: foobar
+
+secrets:
+  admin_token: foobar
+  admin_password: kilgore
+  demo_password: phooey
+  service_password: blarg
+  db_password: CHANGE_ME
+  rabbit_password: guest
 
 endpoints:
   db: 127.0.0.1
@@ -8,14 +14,6 @@ endpoints:
   quantum: 127.0.0.1
   keystone: 127.0.0.1
   rabbit: 127.0.0.1
-admin_token: foobar
-
-db:
-  password: CHANGE_ME
-
-rabbit:
-  host: 127.0.0.1
-  password: guest
 
 nova:
   libvirt_type: qemu

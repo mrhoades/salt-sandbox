@@ -23,11 +23,8 @@ nova_user:
     - source: salt://os/nova/nova.conf
     - template: jinja
     - context:
-        admin_token: {{ pillar['admin_token'] }}
-        service_password: {{ pillar['service_password'] }}
+        secrets: {{ pillar['secrets'] }}
         endpoints: {{ pillar['endpoints'] }}
-        db: {{ pillar['db'] }}
-        rabbit: {{ pillar['rabbit'] }}
         nova: {{ pillar['nova'] }}
 
 /etc/nova/logging.conf:

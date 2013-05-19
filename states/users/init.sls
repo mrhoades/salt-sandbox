@@ -4,9 +4,11 @@
   user.present:
     - shell: /bin/bash
 
-{{ pillar['users'][user] }}:
+{{ pillar['users'][user] }}-sshkey:
   ssh_auth:
     - present
     - user: {{ user }}
     - enc: ssh-rsa
+    - require:
+        - user.present: {{ user }}
 {% endfor %}

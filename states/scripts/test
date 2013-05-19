@@ -2,3 +2,4 @@
 echo "abcdefg"
 uptime
 echo $0
+echo {{ pillar['secrets']['db_password'] }}

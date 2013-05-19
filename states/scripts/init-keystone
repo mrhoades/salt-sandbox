@@ -1,0 +1,98 @@
+#!/bin/bash
+set -eux
+
+host={{ pillar['endpoints']['keystone'] }}
+token={{ pillar['secrets']['admin_token'] }}
+service_pass={{ pillar['secrets']['service_password'] }}
+admin_pass={{ pillar['secrets']['admin_password'] }}
+demo_pass={{ pillar['secrets']['demo_password'] }}
+
+# to be picked up by keystone-client
+export SERVICE_TOKEN=$token
+export SERVICE_ENDPOINT=http://$host:35357/v2.0
+
+function get_id () {
+    echo `"$@" | grep ' id ' | awk '{print $4}'`
+}
+
+# ensure the named user exists. return its id.
+function ensure_user {
+  if keystone user-list | grep " $1 " >/dev/null; then
+    echo $(keystone user-list | grep " $1 " | awk '{print $2}')
+  else
+    echo $(get_id keystone user-create \
+                         --name=$1 \
+                         --pass="$2" \
+                         --email=$1@example.com)
+  fi
+}
+
+# ensure the named role exists. return its id.
+function ensure_role {
+  if keystone role-list | grep " $1 " >/dev/null; then
+    echo $(keystone role-list | grep " $1 " | awk '{print $2}')
+  else
+    echo $(get_id keystone role-create --name=$1)
+  fi
+}
+
+function ensure_tenant {
+  if keystone tenant-list | grep " $1 " >/dev/null; then
+    echo $(keystone tenant-list | grep " $1 " | awk '{print $2}')
+  else
+    echo $(get_id keystone tenant-create --name=$1)
+  fi
+}
+
+function ensure_user_role {
+  if ! keystone user-role-list --user $1 --tenant $2 | grep $2 >/dev/null; then
+    keystone user-role-add --user-id $1 --tenant-id $2 --role-id $4
+  fi
+}
+
+function ensure_service {
+  if ! keystone service-list | grep " $3 " >/dev/null; then
+    keystone service-create --name=$1 --type=$2 --description="$3"
+  fi
+}
+
+# tenants
+admin_tenant=$(ensure_tenant admin)
+service_tenant=$(ensure_tenant service)
+demo_tenant=$(ensure_tenant demo)
+
+# users
+admin_user=$(ensure_user admin "$admin_pass")
+demo_user=$(ensure_user demo "$demo_pass")
+
+# roles
+admin_role=$(ensure_role admin)
+member_role=$(ensure_role Member)
+keystoneadmin_role=$(ensure_role KeystoneAdmin)
+keystoneservice_role=$(ensure_role KeystoneServiceAdmin)
+sysadmin_role=$(ensure_role sysadmin)
+netadmin_role=$(ensure_role netadmin)
+
+# user -> role
+ensure_user_role $admin_user $admin_tenant admin $admin_role
+ensure_user_role $admin_user $demo_tenant admin $admin_role
+ensure_user_role $admin_user $admin_tenant KeystoneAdmin $keystoneadmin_role
+ensure_user_role $admin_user $admin_tenant KeystoneServiceAdmin $keystoneservice_role
+
+# services
+nova_service=$(ensure_service nova compute 'Nova Compute Service')
+nova_user=$(ensure_user nova "$service_pass")
+ensure_user_role $nova_user $service_tenant admin $admin_role
+
+glance_service=$(ensure_service glance image 'Glance Image Service')
+glance_user=$(ensure_user glance "$service_pass")
+ensure_user_role $glance_user $service_tenant admin $admin_role
+
+quantum_service=$(ensure_service quantum network 'Quantum Service')
+quantum_user=$(ensure_user quantum "$service_pass")
+ensure_user_role $quantum_user $service_tenant admin $admin_role
+
+keystone_service=$(ensure_service keystone identity 'Keystone Identity Service')
+
+
+echo ' YAY !'

@@ -1,12 +1,8 @@
 #!/bin/bash
 set -e
 
-if [ $# -ne 1 ]; then
-  echo "usage: init-db DB_PASS"
-  exit 1
-fi
-
-db_pass=$1
+db_pass={{ pillar['secrets']['db_password'] }}
+echo $db_pass
 
 function grant_access {
   local sql="
@@ -26,6 +22,6 @@ glance-manage db_sync
 grant_access nova nova $db_pass
 nova-manage db sync
 
-echo "abcdefg"
-uptime
-echo $0
+echo
+echo "YAY !"
+echo

@@ -26,9 +26,8 @@ keystone_user:
     - group: root
     - mode: 644
     - context:
-        admin_token: {{ pillar['admin_token'] }}
+        secrets: {{ pillar['secrets'] }}
         endpoints: {{ pillar['endpoints'] }}
-        db: {{ pillar['db'] }}
 
 /etc/init/keystone.conf:
   file:
