@@ -5,8 +5,7 @@ source /root/stackrc
 function install_image {
   local name=$1
   local url=$2
-echo XXX $name
-echo XXX $url
+
   if [ ! -e /root/$name.qcow2 ]; then
     curl -L -o /root/$name.qcow2 "$url"
   fi
