@@ -61,7 +61,7 @@ function ensure_service {
   if keystone service-list | grep " $1 " >/dev/null; then
     echo $(keystone service-list | grep " $1 " | awk '{print $2}')
   else
-    keystone service-create --name=$1 --type=$2 --description="$3"
+    echo $(get_id keystone service-create --name=$1 --type=$2 --description="$3")
   fi
 }
 

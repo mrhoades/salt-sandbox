@@ -1,5 +1,7 @@
 ## now
 
+init-keystone fails first time with 'Could not find service:'
+init-keystone does not run subsequent times unless run locally with salt-call.
 upload images to glance
 run nova-compute
 
@@ -34,6 +36,7 @@ start quantum services
 
 # done
 
+X configure nova rootwrap
 X install rabbit
 X run all nova non-compute services
 X run nova-api

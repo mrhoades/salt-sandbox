@@ -35,6 +35,7 @@ install software and config:
 initialize state:
 
     salt os-controller cmd.script salt://scripts/init-db
+    salt os-controller cmd.script salt://scripts/init-keystone
 
 ### clean up
 

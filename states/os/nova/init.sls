@@ -27,10 +27,16 @@ nova_user:
         endpoints: {{ pillar['endpoints'] }}
         nova: {{ pillar['nova'] }}
 
+/etc/nova/rootwrap.conf:
+  file:
+    - managed
+    - source: salt://os/nova/etc/rootwrap.conf
+
 /etc/nova/logging.conf:
   file:
     - managed
     - source: salt://os/nova/etc/logging.conf
+
 
 /etc/nova/api-paste.ini:
   file:
@@ -40,6 +46,15 @@ nova_user:
         secrets: {{ pillar['secrets'] }}
         endpoints: {{ pillar['endpoints'] }}
 
+/etc/sudoers.d/nova:
+  file:
+    - managed
+    - user: root
+    - group: root
+    - mode: 440
+    - source: salt://os/nova/etc/sudoer
+rsync -avh /opt/stack/nova/etc/nova/rootwrap.d /etc/nova:
+  cmd.run
 
 /var/lib/nova:
   file.directory:
