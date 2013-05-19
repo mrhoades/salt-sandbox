@@ -2,8 +2,6 @@
 
 fill in pillar data for endpoints dynamically
 /var/lib/nova and /var/log/nova must depend on nova user for first run
-upload images to glance
-
 start quantum services
 
 ## urgent bugs
@@ -35,6 +33,8 @@ start quantum services
 
 # done
 
+X pull default images from pillar
+X upload images to glance
 X nova-client auths correctly with default stackrc.
 X init-keystone does not run subsequent times unless run locally with salt-call.
 X run nova-compute

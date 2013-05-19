@@ -36,6 +36,7 @@ initialize state:
 
     salt os-controller cmd.script salt://scripts/init-db
     salt os-controller cmd.script salt://scripts/init-keystone
+    salt os-controller cmd.script salt://scripts/init-glance
 
 ### clean up
 
