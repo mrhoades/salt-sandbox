@@ -1,10 +1,8 @@
 ## now
 
-init-keystone fails first time with 'Could not find service:'
-init-keystone does not run subsequent times unless run locally with salt-call.
+fill in pillar data for endpoints dynamically
 /var/lib/nova and /var/log/nova must depend on nova user for first run
 upload images to glance
-run nova-compute
 
 start quantum services
 
@@ -37,6 +35,9 @@ start quantum services
 
 # done
 
+X init-keystone does not run subsequent times unless run locally with salt-call.
+X run nova-compute
+X init-keystone fails first time with 'Could not find service:'
 X configure nova rootwrap
 X install rabbit
 X run all nova non-compute services

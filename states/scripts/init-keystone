@@ -52,7 +52,7 @@ function ensure_tenant {
 }
 
 function ensure_user_role {
-  if ! keystone user-role-list --user $1 --tenant $2 | grep $2 >/dev/null; then
+  if ! keystone user-role-list --user $1 --tenant $2 | grep $3 >/dev/null; then
     keystone user-role-add --user-id $1 --tenant-id $2 --role-id $4
   fi
 }
