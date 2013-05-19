@@ -35,6 +35,7 @@ start quantum services
 
 # done
 
+X nova-client auths correctly with default stackrc.
 X init-keystone does not run subsequent times unless run locally with salt-call.
 X run nova-compute
 X init-keystone fails first time with 'Could not find service:'

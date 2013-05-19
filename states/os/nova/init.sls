@@ -37,11 +37,16 @@ nova_user:
     - managed
     - source: salt://os/nova/etc/logging.conf
 
+/etc/nova/policy.json:
+  file:
+    - managed
+    - source: salt://os/nova/etc/policy.json
 
 /etc/nova/api-paste.ini:
   file:
     - managed
     - source: salt://os/nova/etc/api-paste.ini
+    - template: jinja
     - context:
         secrets: {{ pillar['secrets'] }}
         endpoints: {{ pillar['endpoints'] }}
