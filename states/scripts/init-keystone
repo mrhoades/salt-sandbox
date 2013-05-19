@@ -1,15 +1,22 @@
 #!/bin/bash
 set -eux
 
-host={{ pillar['endpoints']['keystone'] }}
 token={{ pillar['secrets']['admin_token'] }}
 service_pass={{ pillar['secrets']['service_password'] }}
 admin_pass={{ pillar['secrets']['admin_password'] }}
 demo_pass={{ pillar['secrets']['demo_password'] }}
+keystone_endpoint={{ pillar['endpoints']['keystone'] }}
+nova_endpoint={{ pillar['endpoints']['nova'] }}
+glance_endpoint={{ pillar['endpoints']['glance'] }}
+quantum_endpoint={{ pillar['endpoints']['quantum'] }}
+
+# TODO: where should this live?
+keystone-manage pki_setup
+chown -R keystone:keystone /etc/keystone/ssl
 
 # to be picked up by keystone-client
 export SERVICE_TOKEN=$token
-export SERVICE_ENDPOINT=http://$host:35357/v2.0
+export SERVICE_ENDPOINT=http://$keystone_endpoint:35357/v2.0
 
 function get_id () {
     echo `"$@" | grep ' id ' | awk '{print $4}'`
@@ -51,8 +58,21 @@ function ensure_user_role {
 }
 
 function ensure_service {
-  if ! keystone service-list | grep " $3 " >/dev/null; then
+  if keystone service-list | grep " $1 " >/dev/null; then
+    echo $(keystone service-list | grep " $1 " | awk '{print $2}')
+  else
     keystone service-create --name=$1 --type=$2 --description="$3"
+  fi
+}
+
+function ensure_endpoint {
+  if keystone endpoint-list | grep $1 >/dev/null; then
+    return
+  else
+    keystone endpoint-create --region RegionOne --service-id $1 \
+        --publicurl "$2" \
+        --adminurl "$2" \
+        --internalurl "$2" >/dev/null
   fi
 }
 
@@ -83,14 +103,18 @@ ensure_user_role $admin_user $admin_tenant KeystoneServiceAdmin $keystoneservice
 nova_service=$(ensure_service nova compute 'Nova Compute Service')
 nova_user=$(ensure_user nova "$service_pass")
 ensure_user_role $nova_user $service_tenant admin $admin_role
+ensure_endpoint $nova_service "http://$nova_endpoint:\$(compute_port)s/v2/\$(tenant_id)s"
+
 
 glance_service=$(ensure_service glance image 'Glance Image Service')
 glance_user=$(ensure_user glance "$service_pass")
 ensure_user_role $glance_user $service_tenant admin $admin_role
+ensure_endpoint $glance_service "http://$glance_endpoint:9292/v1"
 
 quantum_service=$(ensure_service quantum network 'Quantum Service')
 quantum_user=$(ensure_user quantum "$service_pass")
 ensure_user_role $quantum_user $service_tenant admin $admin_role
+ensure_endpoint $quantum_service "http://$quantum_endpoint:9696"
 
 keystone_service=$(ensure_service keystone identity 'Keystone Identity Service')
 

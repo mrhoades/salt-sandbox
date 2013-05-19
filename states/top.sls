@@ -7,6 +7,7 @@ base:
     - os.keystone
     - os.glance
     - os.nova
+    - os.rabbit
     - os.client
   'os-compute-*':
     - os.nova

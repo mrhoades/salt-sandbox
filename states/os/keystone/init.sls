@@ -29,6 +29,11 @@ keystone_user:
         secrets: {{ pillar['secrets'] }}
         endpoints: {{ pillar['endpoints'] }}
 
+/etc/keystone/policy.json:
+  file:
+    - managed
+    - source: salt://os/keystone/policy.json
+
 /etc/init/keystone.conf:
   file:
     - managed

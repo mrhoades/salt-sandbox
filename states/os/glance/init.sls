@@ -23,6 +23,7 @@ glance_user:
     - source: salt://os/glance/glance-api-paste.ini
     - template: jinja
     - context:
+        secrets: {{ pillar['secrets'] }}
         endpoints: {{ pillar['endpoints'] }}
 
 /etc/glance/glance-registry-paste.ini:
@@ -31,6 +32,7 @@ glance_user:
     - source: salt://os/glance/glance-registry-paste.ini
     - template: jinja
     - context:
+        secrets: {{ pillar['secrets'] }}
         endpoints: {{ pillar['endpoints'] }}
 
 /etc/glance/glance-api.conf:
@@ -39,6 +41,16 @@ glance_user:
     - source: salt://os/glance/glance-api.conf
     - template: jinja
     - context:
+        secrets: {{ pillar['secrets'] }}
+        endpoints: {{ pillar['endpoints'] }}
+
+/etc/glance/glance-registry.conf:
+  file:
+    - managed
+    - source: salt://os/glance/glance-registry.conf
+    - template: jinja
+    - context:
+        secrets: {{ pillar['secrets'] }}
         endpoints: {{ pillar['endpoints'] }}
 
 /etc/glance/policy.json:

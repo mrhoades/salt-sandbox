@@ -32,13 +32,38 @@ nova_user:
     - managed
     - source: salt://os/nova/logging.conf
 
+/etc/nova/api-paste.ini:
+  file:
+    - managed
+    - source: salt://os/nova/api-paste.ini
+    - context:
+        secrets: {{ pillar['secrets'] }}
+        endpoints: {{ pillar['endpoints'] }}
+
 /etc/init/nova-api.conf:
   file:
     - managed
     - source: salt://os/nova/nova-api.upstart
-    - user: root
-    - group: root
-    - mode: 644
+
+/etc/init/nova-cert.conf:
+  file:
+    - managed
+    - source: salt://os/nova/nova-cert.upstart
+
+/etc/init/nova-consoleauth.conf:
+  file:
+    - managed
+    - source: salt://os/nova/nova-consoleauth.upstart
+
+/etc/init/nova-scheduler.conf:
+  file:
+    - managed
+    - source: salt://os/nova/nova-scheduler.upstart
+
+/etc/init/nova-conductor.conf:
+  file:
+    - managed
+    - source: salt://os/nova/nova-conductor.upstart
 
 /var/lib/nova:
   file.directory:
@@ -52,4 +77,33 @@ nova_api_service:
   service:
     - name: nova-api
     - running
+    - watch:
+      - file: /etc/nova/nova.conf
 
+nova_cert_service:
+  service:
+    - name: nova-cert
+    - running
+    - watch:
+      - file: /etc/nova/nova.conf
+
+nova_consoleauth_service:
+  service:
+    - name: nova-consoleauth
+    - running
+    - watch:
+      - file: /etc/nova/nova.conf
+
+nova_scheduler_service:
+  service:
+    - name: nova-scheduler
+    - running
+    - watch:
+      - file: /etc/nova/nova.conf
+
+nova_conductor_service:
+  service:
+    - name: nova-conductor
+    - running
+    - watch:
+      - file: /etc/nova/nova.conf

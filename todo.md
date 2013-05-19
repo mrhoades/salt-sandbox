@@ -1,6 +1,9 @@
 ## now
 
-* default keystone users
+upload images to glance
+run nova-compute
+
+start quantum services
 
 ## urgent bugs
 
@@ -11,9 +14,6 @@
 
 ## misc
 
-* default glance images
-* nova-compute services
-* quantum services
 * boot an instance
 
 ## first-run of highstate:
@@ -33,4 +33,9 @@
 
 # done
 
-* automated integration test for what's done so far.
+X install rabbit
+X run all nova non-compute services
+X run nova-api
+X default keystone endpoints
+X default keystone users
+X automated integration test for what's done so far.
