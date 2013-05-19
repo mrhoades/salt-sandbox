@@ -2,7 +2,7 @@
 include:
   - os.nova
 
-/etc/init/nova-compute.conf
+/etc/init/nova-compute.conf:
   file:
     - managed
     - source: salt://os/nova/etc/nova-compute.upstart
