@@ -1,8 +1,8 @@
 ## now
 
 fill in pillar data for endpoints dynamically
-/var/lib/nova and /var/log/nova must depend on nova user for first run
-start quantum services
+start quantum service
+start quantum agent
 
 ## urgent bugs
 
@@ -18,8 +18,8 @@ start quantum services
 
 ## first-run of highstate:
 
-* (glance, nova, keystone) users must be created before /var/ directories
-* pip package must be reqired by pip install commands
+* database create states must require mysql to be present
+* pip package and target repo must be reqired by pip install commands
 
 ## salt
 
@@ -33,6 +33,9 @@ start quantum services
 
 # done
 
+X install quantum software
+X (glance, nova, keystone) users must be created before /var/ directories
+X /var/lib/nova and /var/log/nova must depend on nova user for first run
 X pull default images from pillar
 X upload images to glance
 X nova-client auths correctly with default stackrc.

@@ -71,6 +71,8 @@ glance_user:
 /var/lib/glance:
   file.directory:
     - user: glance
+    - require:
+      - user: glance
 
 glance-api-service:
   service:

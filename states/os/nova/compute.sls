@@ -11,9 +11,6 @@ dnsmasq-utils:
 ebtables:
   pkg.installed
 
-libvirt:
-  pkg.installed
-
 libvirt-bin:
   pkg.installed
 
@@ -37,3 +34,9 @@ nova-compute-service:
     - running
     - watch:
       - file: /etc/nova/nova.conf
+
+usermod -a -G libvirtd nova:
+  cmd.run:
+    - requires:
+      - user: nova
+      - pkg: libvirt-bin
