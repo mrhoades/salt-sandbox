@@ -33,6 +33,43 @@ openvswitch-datapath-dkms:
         endpoints: {{ pillar['endpoints'] }}
         network: {{ pillar['network'] }}
 
+/etc/quantum/dhcp_agent.ini:
+  file:
+    - managed
+    - source: salt://os/quantum/etc/dhcp_agent.ini
+
+/etc/quantum/rootwrap.conf:
+  file:
+    - managed
+    - source: salt://os/quantum/etc/rootwrap.conf
+
+/etc/sudoers.d/quantum:
+  file:
+    - managed
+    - user: root
+    - group: root
+    - mode: 440
+    - source: salt://os/quantum/etc/sudoer
+
+/etc/quantum/api-paste.ini:
+  file:
+    - managed
+    - source: salt://os/quantum/etc/api-paste.ini
+    - template: jinja
+    - context:
+        secrets: {{ pillar['secrets'] }}
+        endpoints: {{ pillar['endpoints'] }}
+
+/etc/quantum/plugins/openvswitch/ovs_quantum_plugin.ini:
+  file:
+    - managed
+    - source: salt://os/quantum/etc/ovs_quantum_plugin.ini
+    - template: jinja
+    - context:
+        secrets: {{ pillar['secrets'] }}
+        endpoints: {{ pillar['endpoints'] }}
+        network: {{ pillar['network'] }}
+
 /etc/quantum/policy.json:
   file:
     - managed
