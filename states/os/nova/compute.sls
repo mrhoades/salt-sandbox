@@ -28,9 +28,21 @@ pm-utils:
     - managed
     - source: salt://os/nova/etc/nova-compute.upstart
 
+/etc/init/nova-api-metadata.conf:
+  file:
+    - managed
+    - source: salt://os/nova/etc/nova-api-metadata.upstart
+
 nova-compute-service:
   service:
     - name: nova-compute
+    - running
+    - watch:
+      - file: /etc/nova/nova.conf
+
+nova-api-metadata-service:
+  service:
+    - name: nova-api-metadata
     - running
     - watch:
       - file: /etc/nova/nova.conf

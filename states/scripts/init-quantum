@@ -1,0 +1,44 @@
+#!/bin/bash
+set -eux
+set -o pipefail
+
+source /root/stackrc
+
+# TODO: make everything configurable via pillar.
+# TODO: this is just for testing at the moment
+PHYSICAL_NETWORK=eth0
+TENANT_ID=$(keystone tenant-list | grep admin | awk '{print $2}')
+ALLOCATION_POOL="start=192.0.2.34,end=192.0.2.38"
+NETWORK_GATEWAY=192.0.2.33
+FIXED_RANGE=192.0.2.33/29
+
+
+OVS_PHYSICAL_BRIDGE=br-ctlplane
+
+# TODO: this is probably wrong (should be eth1).
+# TODO: configure eth1 in /e/n/i so we have an eth1
+PUBLIC_INTERFACE=eth0
+
+ovs-vsctl --no-wait -- --may-exist add-br br-int
+ovs-vsctl --no-wait br-set-external-id br-int bridge-id br-int
+ovs-vsctl --no-wait -- --may-exist add-br br-ctlplane
+ovs-vsctl add-port $OVS_PHYSICAL_BRIDGE $PUBLIC_INTERFACE || echo "port already added?"
+
+# Right now we probably are disconnected, need to move all IPs from public interface to bridge
+#for IP in $(ip addr show dev $PUBLIC_INTERFACE | grep ' inet ' | awk '{print $2}'); do
+#  ip addr del $IP dev $PUBLIC_INTERFACE
+#
+#  if ! ip addr show $OVS_PHYSICAL_BRIDGE | grep $IP; then
+#    ip addr add $IP dev $OVS_PHYSICAL_BRIDGE
+#  fi
+#done
+
+ifconfig $OVS_PHYSICAL_BRIDGE up
+
+service openvswitch-switch restart
+
+
+
+NET_ID=$(quantum net-create $PHYSICAL_NETWORK --tenant_id $TENANT_ID --provider:network_type flat --provider:physical_network "$PHYSICAL_NETWORK" | grep ' id ' | awk '{print $4}')
+SUBNET_ID=$(quantum subnet-create --tenant_id $TENANT_ID --ip_version 4 ${ALLOCATION_POOL:+--allocation-pool $ALLOCATION_POOL} --gateway $NETWORK_GATEWAY $NET_ID $FIXED_RANGE | grep ' id ' | awk '{print $4}')
+

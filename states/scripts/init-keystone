@@ -1,5 +1,6 @@
 #!/bin/bash
 set -eux
+set -o pipefail
 
 token={{ pillar['secrets']['admin_token'] }}
 service_pass={{ pillar['secrets']['service_password'] }}
@@ -11,8 +12,8 @@ glance_endpoint={{ pillar['endpoints']['glance'] }}
 quantum_endpoint={{ pillar['endpoints']['quantum'] }}
 
 # TODO: where should this live?
-keystone-manage pki_setup
-chown -R keystone:keystone /etc/keystone/ssl
+#keystone-manage pki_setup
+#chown -R keystone:keystone /etc/keystone/ssl
 
 # to be picked up by keystone-client
 export SERVICE_TOKEN=$token

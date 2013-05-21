@@ -27,10 +27,16 @@ put the states and config data where salt looks for it:
 
 ### deploy openstack
 
+add ip addresses and set creds in pillar:
+
+    vi pillar/os.sls
+    salt '*' saltutil.refresh_pillar
+
 install software and config:
 
     salt-key -L              # verify that these are the hosts you really mean
     salt \* state.highstate  # install openstack
+    salt \* state.highstate  # run it again, required because of bugs at the moment.
 
 initialize state:
 

@@ -5,7 +5,7 @@ respawn
 
 exec start-stop-daemon --start \
                        --chuid quantum \
-                       --exec /usr/local/bin/quantum-server \
+                       --exec /usr/local/bin/quantum-openvswitch-agent \
                        -- --config-dir /etc/quantum \
                           --config-file /etc/quantum/quantum.conf \
                           --config-file /etc/quantum/plugins/openvswitch/ovs_quantum_plugin.ini

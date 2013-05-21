@@ -8,12 +8,12 @@ secrets:
   rabbit_password: guest
 
 endpoints:
-  db: 10.4.64.31
-  nova: 10.4.64.31
-  glance: 10.4.64.31
-  quantum: 10.4.64.31
-  keystone: 10.4.64.31
-  rabbit: 10.4.64.31
+  db: 127.0.0.1
+  nova: 127.0.0.1
+  glance: 127.0.0.1
+  quantum: 127.0.0.1
+  keystone: 127.0.0.1
+  rabbit: 127.0.0.1
 
 nova:
   libvirt_type: qemu
