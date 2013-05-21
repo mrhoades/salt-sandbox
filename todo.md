@@ -2,7 +2,6 @@
 
 configure ifaces/bridges for quantum
 run quantum l3 agent, metadata agent, dhcp agent.
-nova instances get quantum ips.
 metadata service is reachable from instances
 
 ## urgent bugs
@@ -32,6 +31,8 @@ metadata service is reachable from instances
 
 # done
 
+X nova instances get quantum ips.
+X generate keystone certs
 X fill in pillar data for endpoints dynamically
 X salt-cloud parallel build is busted: https://github.com/saltstack/salt-cloud/issues/549
   - pull request: https://github.com/saltstack/salt-cloud/issues/549

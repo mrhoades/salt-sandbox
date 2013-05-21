@@ -23,6 +23,9 @@ openvswitch-switch:
 openvswitch-datapath-dkms:
   pkg.installed
 
+python-netaddr:
+  pkg.installed
+
 /etc/quantum/quantum.conf:
   file:
     - managed

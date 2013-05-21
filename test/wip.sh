@@ -11,11 +11,12 @@ sleep 20 # wait for vm destroy to complete
 salt-cloud -m $root/maps/three-node.map -P
 reset # currently, salt-cloud -P screws up the terminal.
 
-# TODO: generate pillar with correct ips.
 # fill in pillar with actual ips
 controller_ip=$(salt os-controller network.ip_addrs | tail -1 | awk '{print $2}')
 cp $root/pillar/os.sls.template $root/pillar/os.sls
 sed -i "s/127.0.0.1/$controller_ip/" $root/pillar/os.sls
+# send out updated pillar to minions
+salt '*' saltutil.refresh_pillar
 
 # install software/configs
 salt \* state.highstate
@@ -24,6 +25,7 @@ salt \* state.highstate
 
 # initialize DBs
 salt os-controller cmd.script salt://scripts/init-db
+salt os-controller service.restart mysql
 
 # initialize openstack
 salt os-controller cmd.script salt://scripts/init-keystone

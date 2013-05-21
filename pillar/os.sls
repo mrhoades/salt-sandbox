@@ -8,12 +8,12 @@ secrets:
   rabbit_password: guest
 
 endpoints:
-  db: 10.4.64.31
-  nova: 10.4.64.31
-  glance: 10.4.64.31
-  quantum: 10.4.64.31
-  keystone: 10.4.64.31
-  rabbit: 10.4.64.31
+  db: 10.4.87.215
+  nova: 10.4.87.215
+  glance: 10.4.87.215
+  quantum: 10.4.87.215
+  keystone: 10.4.87.215
+  rabbit: 10.4.87.215
 
 nova:
   libvirt_type: qemu
@@ -24,6 +24,9 @@ glance:
     cirros: "https://launchpad.net/cirros/trunk/0.3.0/+download/cirros-0.3.0-x86_64-disk.img"
     quantal: "http://cloud-images.ubuntu.com/quantal/current/quantal-server-cloudimg-amd64-disk1.img"
 
-network:
-  interfaces:
-    control: TODO - needed by quantum
+quantum:
+  public_interface: eth1
+  physical_bridge: br-ctlplane
+  physical_network: ctlplane
+  fixed_range: "192.0.2.32/29"
+  ovs_range: "192.0.2.0/24"

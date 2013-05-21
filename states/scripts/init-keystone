@@ -12,10 +12,10 @@ glance_endpoint={{ pillar['endpoints']['glance'] }}
 quantum_endpoint={{ pillar['endpoints']['quantum'] }}
 
 # TODO: where should this live?
-#keystone-manage pki_setup
-#chown -R keystone:keystone /etc/keystone/ssl
+keystone-manage pki_setup
+chown -R keystone:keystone /etc/keystone/ssl
 
-# to be picked up by keystone-client
+# to be picked up by keystone-client, to enable user creation.
 export SERVICE_TOKEN=$token
 export SERVICE_ENDPOINT=http://$keystone_endpoint:35357/v2.0
 
