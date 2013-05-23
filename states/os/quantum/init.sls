@@ -34,7 +34,7 @@ python-netaddr:
     - context:
         secrets: {{ pillar['secrets'] }}
         endpoints: {{ pillar['endpoints'] }}
-        network: {{ pillar['network'] }}
+        quantum: {{ pillar['quantum'] }}
 
 /etc/quantum/dhcp_agent.ini:
   file:
@@ -71,7 +71,7 @@ python-netaddr:
     - context:
         secrets: {{ pillar['secrets'] }}
         endpoints: {{ pillar['endpoints'] }}
-        network: {{ pillar['network'] }}
+        quantum: {{ pillar['quantum'] }}
 
 /etc/quantum/policy.json:
   file:

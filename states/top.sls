@@ -10,6 +10,9 @@ base:
     - os.rabbit
     - os.quantum.service
     - os.client
+  os-network:
+    - os.quantum.networking
   'os-compute-*':
     - os.nova.compute
+    - os.quantum.networking
     - os.quantum.agent

@@ -1,7 +1,8 @@
 ## now
 
 configure ifaces/bridges for quantum
-run quantum l3 agent, metadata agent, dhcp agent.
+create default quantum net/subnet
+run quantum l3 agent, metadata agent, dhcp agent on network node
 metadata service is reachable from instances
 
 ## urgent bugs

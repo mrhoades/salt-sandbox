@@ -23,7 +23,7 @@ put the states and config data where salt looks for it:
 
 ### spin up some vms
 
-    salt-cloud -m maps/three-node.map -P
+    salt-cloud -m maps/minimal.map -P
 
 ### deploy openstack
 

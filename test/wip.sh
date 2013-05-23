@@ -8,7 +8,7 @@ salt-cloud -d os-controller os-compute-{0,1}
 sleep 20 # wait for vm destroy to complete
 
 # boot fresh vms, and bootstrap them into minions
-salt-cloud -m $root/maps/three-node.map -P
+salt-cloud -m $root/maps/minimal.map -P
 reset # currently, salt-cloud -P screws up the terminal.
 
 # fill in pillar with actual ips

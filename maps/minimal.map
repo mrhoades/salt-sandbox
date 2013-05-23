@@ -1,6 +1,7 @@
 
 medium:
   - os-controller
+  - os-network
   - os-compute-0
   - os-compute-1
 
