@@ -7,14 +7,13 @@ secrets:
   db_password: CHANGE_ME
   rabbit_password: guest
   horizon_secret_key: asdf
-
 endpoints:
-  db: 10.5.11.231
-  nova: 10.5.11.231
-  glance: 10.5.11.231
-  quantum: 10.5.11.231
-  keystone: 10.5.11.231
-  rabbit: 10.5.11.231
+  db: 10.4.244.241
+  nova: 10.4.244.241
+  glance: 10.4.244.241
+  quantum: 10.4.244.241
+  keystone: 10.4.244.241
+  rabbit: 10.4.244.241
 
 nova:
   libvirt_type: qemu

@@ -1,7 +1,10 @@
 ## now
 
-script to fire up ssh connection in screen/tmux.:wq
 configure quantum with br-int, br-ex, local_ip/id. drop ctlplane.
+(http://techbackground.blogspot.co.nz/2013/05/the-quantum-l3-router-and-floating-ips.html)
+(http://docs.openstack.org/grizzly/openstack-network/admin/content/index.html)
+(http://docs.openstack.org/grizzly/openstack-network/admin/content/l3_workflow.html)
+(http://techbackground.blogspot.ie/2013/05/debugging-quantum-dhcp-and-open-vswitch.html)
 
 ## soon
 
@@ -39,6 +42,7 @@ don't run nova-api-metadata on compute nodes (handled by quantum) ?
 
 # done
 
+X script to fire up ssh connection in screen/tmux.:wq
 X run horizon
 X keystone endpoint was missing from service catalog.
 X configure ifaces/bridges for quantum

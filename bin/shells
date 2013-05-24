@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+require 'yaml'
+
+raise 'you must be root to run this.' unless Process.uid == 0
+
+screenrc = '/tmp/salt-screen'
+`rm #{screenrc}`
+
+ssh_args = '-i /etc/salt/hpcloud/salt.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+
+File.open(screenrc, 'w') do |f|
+  f.write <<-eos
+startup_message off
+hardstatus alwayslastline "%w"
+  eos
+
+  YAML::load(`salt \\* network.ip_addrs`).each_pair do |host, ips|
+    ips.select { |ip| ip =~ /^10./ }.each do |ip|
+      f.write "screen -t #{host} sh -c \"ssh #{ssh_args} ubuntu@#{ip}\"\n"
+    end
+  end
+
+  f.flush
+end
+
+exec "screen -c #{screenrc}"
