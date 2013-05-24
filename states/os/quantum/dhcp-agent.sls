@@ -3,7 +3,7 @@ include:
   - os.quantum
 
 dnsmasq:
-  - pkg.installed
+  pkg.installed
 
 /etc/init/quantum-dhcp-agent.conf:
   file:

@@ -1,5 +1,6 @@
 ## now
 
+init-networking seems to not get called - /e/n/i is not updated.
 configure quantum with br-int, br-ex, local_ip/id. drop ctlplane.
 (http://techbackground.blogspot.co.nz/2013/05/the-quantum-l3-router-and-floating-ips.html)
 (http://docs.openstack.org/grizzly/openstack-network/admin/content/index.html)
@@ -42,6 +43,7 @@ don't run nova-api-metadata on compute nodes (handled by quantum) ?
 
 # done
 
+X perfom apt-get update in base state
 X script to fire up ssh connection in screen/tmux.:wq
 X run horizon
 X keystone endpoint was missing from service catalog.
