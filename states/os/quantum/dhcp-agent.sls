@@ -2,6 +2,9 @@
 include:
   - os.quantum
 
+dnsmasq:
+  - pkg.installed
+
 /etc/init/quantum-dhcp-agent.conf:
   file:
     - managed
