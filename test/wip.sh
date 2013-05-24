@@ -4,7 +4,7 @@ set -o pipefail
 root=$(cd `dirname "${BASH_SOURCE[0]}"` && pwd)/..
 
 # clean up any existing stack.
-salt-cloud -d os-controller os-compute-{0,1}
+salt-cloud -d os-controller os-network os-compute-{0,1}
 sleep 20 # wait for vm destroy to complete
 
 # boot fresh vms, and bootstrap them into minions

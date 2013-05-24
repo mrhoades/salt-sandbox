@@ -1,0 +1,58 @@
+#!/bin/bash
+set -eux
+
+public_interface={{ pillar['quantum']['public_interface'] }}
+physical_bridge={{ pillar['quantum']['physical_bridge'] }}
+physical_network={{ pillar['quantum']['physical_network'] }}
+fixed_range={{ pillar['quantum']['fixed_range'] }}
+ovs_range={{ pillar['quantum']['ovs_range'] }}
+
+ovs_address=$(python -c 'import netaddr, sys; print netaddr.IPNetwork(sys.argv[1])[1]' $ovs_range)
+ovs_netmask=$(python -c 'import netaddr, sys; print netaddr.IPNetwork(sys.argv[1]).netmask' $ovs_range)
+
+network_gateway=$(python -c 'import netaddr, sys; print netaddr.IPNetwork(sys.argv[1])[1]' $fixed_range)
+ovs_fixed_address=${network_gateway}/${fixed_range##*/}
+
+
+
+if ! grep -q quantum /etc/network/interfaces && ! grep -q "iface $public_interface" /etc/network/interfaces; then
+  cat >> /etc/network/interfaces <<eof
+
+# this interface is required for quantum.
+auto $physical_bridge
+iface $physical_bridge inet static
+  address $ovs_address
+  netmask $ovs_netmask
+  pre-up service openvswitch-switch restart
+  up iptables -t nat -A PREROUTING -d 169.254.169.254 -p tcp -m tcp --dport 80 -j REDIRECT --to-port 8775
+  up iptables -t nat -A POSTROUTING  -s $ovs_range -o eth0 -j MASQUERADE
+  up ip addr add $ovs_fixed_address dev \$IFACE
+
+# this interface is required for quantum.
+auto $public_interface
+iface $public_interface  inet manual
+    up ifconfig \$IFACE 0.0.0.0 up
+
+# may need to add 192.0.2.1 to $physical_bridge
+eof
+fi
+
+service networking restart
+
+ovs-vsctl --no-wait -- --may-exist add-br br-int
+ovs-vsctl --no-wait br-set-external-id br-int bridge-id br-int
+ovs-vsctl --no-wait -- --may-exist add-br br-ctlplane
+ovs-vsctl add-port $physical_bridge $public_interface || echo "port already added?"
+
+# Right now we probably are disconnected, need to move all IPs from public interface to bridge
+for ip in $(ip addr show dev $public_interface | grep ' inet ' | awk '{print $2}'); do
+  ip addr del $ip dev $public_interface
+
+  if ! ip addr show $physical_bridge | grep $ip; then
+    ip addr add $ip dev $physical_bridge
+  fi
+done
+ifconfig $physical_bridge up
+
+service openvswitch-switch restart
+

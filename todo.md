@@ -1,8 +1,6 @@
 ## now
 
-configure ifaces/bridges for quantum
-create default quantum net/subnet
-run quantum l3 agent, metadata agent, dhcp agent on network node
+instances don't get dhcp
 metadata service is reachable from instances
 
 ## urgent bugs
@@ -32,6 +30,9 @@ metadata service is reachable from instances
 
 # done
 
+X configure ifaces/bridges for quantum
+X create default quantum net/subnet
+X run quantum l3 agent, metadata agent, dhcp agent on network node
 X nova instances get quantum ips.
 X generate keystone certs
 X fill in pillar data for endpoints dynamically
