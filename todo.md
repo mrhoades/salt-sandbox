@@ -1,9 +1,23 @@
 ## now
 
-instances don't get dhcp
-metadata service is reachable from instances
+script to fire up ssh connection in screen/tmux.:wq
+configure quantum with br-int, br-ex, local_ip/id. drop ctlplane.
 
-## urgent bugs
+## soon
+
+instances don't get dhcp
+run quantum-metadata-agent on network node
+metadata service is reachable from instances
+configure appropriate tenant quantum network + default subnet.
+don't run nova-api-metadata on compute nodes (handled by quantum) ?
+
+## log shipping
+
+## monitoring
+
+## alerting
+
+## upstream bugs
 
 * salt state.highstate does not exit non-zero on failure.  see several github issues. this may be fixed on 'develop' branch of salt.
 * salt cmd.script does not handle exit codes correctly, either.
@@ -11,7 +25,7 @@ metadata service is reachable from instances
 
 ## misc
 
-* boot an instance
+* novnc via horizon
 
 ## first-run of highstate:
 
@@ -20,16 +34,13 @@ metadata service is reachable from instances
 
 ## salt
 
-* make it exit with error when state or script/cmd fails
 * display success failure at end of highstate output
-
-## log shipping
-
-## monitoring
 
 
 # done
 
+X run horizon
+X keystone endpoint was missing from service catalog.
 X configure ifaces/bridges for quantum
 X create default quantum net/subnet
 X run quantum l3 agent, metadata agent, dhcp agent on network node

@@ -10,6 +10,7 @@ base:
     - os.rabbit
     - os.quantum.service
     - os.client
+    - os.horizon
   os-network:
     - os.quantum.openvswitch-agent
     - os.quantum.l3-agent

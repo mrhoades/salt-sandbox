@@ -6,7 +6,7 @@ secrets:
   service_password: blarg
   db_password: CHANGE_ME
   rabbit_password: guest
-
+  horizon_secret_key: asdf
 endpoints:
   db: 127.0.0.1
   nova: 127.0.0.1

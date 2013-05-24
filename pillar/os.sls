@@ -6,14 +6,15 @@ secrets:
   service_password: blarg
   db_password: CHANGE_ME
   rabbit_password: guest
+  horizon_secret_key: asdf
 
 endpoints:
-  db: 10.4.240.33
-  nova: 10.4.240.33
-  glance: 10.4.240.33
-  quantum: 10.4.240.33
-  keystone: 10.4.240.33
-  rabbit: 10.4.240.33
+  db: 10.5.11.231
+  nova: 10.5.11.231
+  glance: 10.5.11.231
+  quantum: 10.5.11.231
+  keystone: 10.5.11.231
+  rabbit: 10.5.11.231
 
 nova:
   libvirt_type: qemu
