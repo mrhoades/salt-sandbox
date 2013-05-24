@@ -11,8 +11,9 @@ base:
     - os.quantum.service
     - os.client
   os-network:
-    - os.quantum.networking
+    - os.quantum.openvswitch-agent
+    - os.quantum.l3-agent
+    - os.quantum.dhcp-agent
   'os-compute-*':
     - os.nova.compute
-    - os.quantum.networking
-    - os.quantum.agent
+    - os.quantum.openvswitch-agent

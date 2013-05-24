@@ -26,11 +26,30 @@ openvswitch-datapath-dkms:
 python-netaddr:
   pkg.installed
 
+/etc/sudoers.d/quantum:
+  file:
+    - managed
+    - user: root
+    - group: root
+    - mode: 440
+    - source: salt://os/quantum/etc/sudoer
+rsync -avh /opt/stack/quantum/etc/quantum/rootwrap.d /etc/quantum:
+  cmd.run
+
 /etc/quantum/quantum.conf:
   file:
     - managed
     - source: salt://os/quantum/etc/quantum.conf
     - template: jinja
+    - context:
+        secrets: {{ pillar['secrets'] }}
+        endpoints: {{ pillar['endpoints'] }}
+        quantum: {{ pillar['quantum'] }}
+
+/etc/quantum/l3_agent.ini:
+  file:
+    - managed
+    - source: salt://os/quantum/etc/l3_agent.ini
     - context:
         secrets: {{ pillar['secrets'] }}
         endpoints: {{ pillar['endpoints'] }}
