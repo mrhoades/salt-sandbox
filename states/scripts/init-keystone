@@ -118,6 +118,9 @@ ensure_user_role $quantum_user $service_tenant admin $admin_role
 ensure_endpoint $quantum_service "http://$quantum_endpoint:9696"
 
 keystone_service=$(ensure_service keystone identity 'Keystone Identity Service')
-
+keystone endpoint-create --region RegionOne --service-id $keystone_service \
+    --publicurl "http://$keystone_endpoint:\$(public_port)s/v2.0" \
+    --adminurl "http://$keystone_endpoint:\$(admin_port)s/v2.0" \
+    --internalurl "http://$keystone_endpoint:\$(public_port)s/v2.0"
 
 echo ' YAY !'
