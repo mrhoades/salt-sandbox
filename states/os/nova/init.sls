@@ -6,9 +6,6 @@ nova_repo:
     - require:
       - pkg: git
 
-pip install -i http://pypi.openstack.org/openstack -r /opt/stack/nova/tools/pip-requires:
-  cmd.run
-
 pip install -i http://pypi.openstack.org/openstack /opt/stack/nova:
   cmd.run
 
