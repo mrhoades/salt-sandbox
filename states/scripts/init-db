@@ -2,7 +2,6 @@
 set -e
 
 db_pass={{ pillar['secrets']['db_password'] }}
-echo $db_pass
 
 function grant_access {
   local sql="
