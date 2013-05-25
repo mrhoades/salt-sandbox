@@ -8,12 +8,12 @@ secrets:
   rabbit_password: guest
   horizon_secret_key: asdf
 endpoints:
-  db: 10.5.84.186
-  nova: 10.5.84.186
-  glance: 10.5.84.186
-  quantum: 10.5.84.186
-  keystone: 10.5.84.186
-  rabbit: 10.5.84.186
+  db: 10.5.96.248
+  nova: 10.5.96.248
+  glance: 10.5.96.248
+  quantum: 10.5.96.248
+  keystone: 10.5.96.248
+  rabbit: 10.5.96.248
 
 nova:
   libvirt_type: qemu
@@ -32,4 +32,3 @@ quantum:
   ovs_range: "192.0.2.0/24"
   tenant_network_type: gre
   enable_tunneling: True
-  local_ip: 10.10.10.1

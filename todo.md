@@ -1,7 +1,11 @@
 ## now
 
+configure quantum with br-int, br-ex, drop ctlplane
 init-networking seems to not get called - /e/n/i is not updated.
-configure quantum with br-int, br-ex, local_ip/id. drop ctlplane.
+
+
+## quantum notes
+
 (http://techbackground.blogspot.co.nz/2013/05/the-quantum-l3-router-and-floating-ips.html)
 (http://docs.openstack.org/grizzly/openstack-network/admin/content/index.html)
 (http://docs.openstack.org/grizzly/openstack-network/admin/content/l3_workflow.html)
@@ -9,17 +13,19 @@ configure quantum with br-int, br-ex, local_ip/id. drop ctlplane.
 
 ## soon
 
-instances don't get dhcp
 run quantum-metadata-agent on network node
 metadata service is reachable from instances
 configure appropriate tenant quantum network + default subnet.
-don't run nova-api-metadata on compute nodes (handled by quantum) ?
 
 ## log shipping
 
 ## monitoring
 
 ## alerting
+
+## tempest
+
+## ceph
 
 ## upstream bugs
 
@@ -43,6 +49,11 @@ don't run nova-api-metadata on compute nodes (handled by quantum) ?
 
 # done
 
+X instances get dhcp.
+X set quantum-ovs local_ip setting dynamically.
+X use gre network_type instead of flat
+X don't run nova-api-metadata on compute nodes (handled by quantum)
+X use correct providers for security groups with quantum.
 X perfom apt-get update in base state
 X script to fire up ssh connection in screen/tmux.:wq
 X run horizon

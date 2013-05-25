@@ -12,9 +12,11 @@ base:
     - os.client
     - os.horizon
   os-network:
+    - os.quantum.networking
     - os.quantum.openvswitch-agent
     - os.quantum.l3-agent
     - os.quantum.dhcp-agent
   'os-compute-*':
+    - os.quantum.networking
     - os.nova.compute
     - os.quantum.openvswitch-agent

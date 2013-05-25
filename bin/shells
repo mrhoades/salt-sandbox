@@ -9,10 +9,8 @@ screenrc = '/tmp/salt-screen'
 ssh_args = '-i /etc/salt/hpcloud/salt.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 
 File.open(screenrc, 'w') do |f|
-  f.write <<-eos
-startup_message off
-hardstatus alwayslastline "%w"
-  eos
+  f.write "startup_message off\n"
+  f.write "hardstatus alwayslastline \"%w\"\n"
 
   YAML::load(`salt \\* network.ip_addrs`).each_pair do |host, ips|
     ips.select { |ip| ip =~ /^10./ }.each do |ip|
