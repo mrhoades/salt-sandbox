@@ -1,7 +1,6 @@
 ## now
 
 configure quantum with br-int, br-ex, drop ctlplane
-init-networking seems to not get called - /e/n/i is not updated.
 
 
 ## quantum notes
@@ -49,6 +48,7 @@ configure appropriate tenant quantum network + default subnet.
 
 # done
 
+X init-networking wasn't being run automatically on ovs nodes
 X instances get dhcp.
 X set quantum-ovs local_ip setting dynamically.
 X use gre network_type instead of flat
