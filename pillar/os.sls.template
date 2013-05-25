@@ -30,3 +30,6 @@ quantum:
   physical_network: ctlplane
   fixed_range: "192.0.2.32/29"
   ovs_range: "192.0.2.0/24"
+  tenant_network_type: gre
+  enable_tunneling: True
+  local_ip: 10.10.10.1
