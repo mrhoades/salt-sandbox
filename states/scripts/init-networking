@@ -41,7 +41,9 @@ service networking restart
 
 ovs-vsctl --no-wait -- --may-exist add-br br-int
 ovs-vsctl --no-wait br-set-external-id br-int bridge-id br-int
-ovs-vsctl --no-wait -- --may-exist add-br br-ctlplane
+ovs-vsctl --no-wait -- --may-exist add-br br-ext
+
+ovs-vsctl --no-wait br-set-external-id br-ext bridge-id br-ext
 ovs-vsctl add-port $physical_bridge $public_interface || echo "port already added?"
 
 # Right now we probably are disconnected, need to move all IPs from public interface to bridge

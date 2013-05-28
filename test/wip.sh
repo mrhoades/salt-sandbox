@@ -6,6 +6,7 @@ root=$(cd `dirname "${BASH_SOURCE[0]}"` && pwd)/..
 # clean up any existing stack.
 salt-cloud -d os-controller os-network os-compute-{0,1}
 sleep 20 # wait for vm destroy to complete
+service salt-master restart
 
 # boot fresh vms, and bootstrap them into minions
 salt-cloud -m $root/maps/minimal.map -P

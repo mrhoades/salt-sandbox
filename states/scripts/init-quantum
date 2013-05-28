@@ -20,7 +20,9 @@ allocation_pool="start=${fixed_range_start},end=${fixed_range_end}"
 
 
 # TODO: make default networks configurable via pillar.
+# TODO: make this part idempotent.
 
 tenant_id=$(keystone tenant-list | grep ' admin ' | awk '{print $2}')
-net_id=$(quantum net-create $physical_network --tenant_id $tenant_id --provider:network_type gre --provider:segmentation_id 256 | grep ' id ' | awk '{print $5"}')
+
+net_id=$(quantum net-create int --tenant_id $tenant_id --provider:network_type gre --provider:segmentation_id 256 | grep ' id ' | awk '{print $4}')
 subnet_id=$(quantum subnet-create --tenant_id $tenant_id --ip_version 4 ${allocation_pool:+--allocation-pool $allocation_pool} --gateway $network_gateway $net_id $fixed_range | grep ' id ' | awk '{print $4}')

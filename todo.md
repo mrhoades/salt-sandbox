@@ -1,7 +1,17 @@
 ## now
 
-configure quantum with br-int, br-ex, drop ctlplane
+fix quantum-l3-agent on network node: The external network bridge 'br-ex' does not exist
 
+run quantum-metadata-agent on network node
+metadata service is reachable from instances
+(quantum-ns-metadata-proxy) ?
+  https://docs.google.com/document/d/1wixS-CrHe37Fv4my9MxUVeQKDb3mUJJCwPnireQ1gn8/edit
+configure service_quantum_metadata_proxy, quantum_metadata_proxy_shared_secret:
+  http://docs.openstack.org/trunk/openstack-network/admin/content/nova_config_metadata.html
+
+ping+login vms, given dhcp.
+
+init-networking seems to fail when run during highstate.
 
 ## quantum notes
 
@@ -12,8 +22,6 @@ configure quantum with br-int, br-ex, drop ctlplane
 
 ## soon
 
-run quantum-metadata-agent on network node
-metadata service is reachable from instances
 configure appropriate tenant quantum network + default subnet.
 
 ## log shipping
@@ -28,6 +36,7 @@ configure appropriate tenant quantum network + default subnet.
 
 ## upstream bugs
 
+* salt sometimes hangs onto minion state for a hostname, and must be restarted.
 * salt state.highstate does not exit non-zero on failure.  see several github issues. this may be fixed on 'develop' branch of salt.
 * salt cmd.script does not handle exit codes correctly, either.
 * salt state.highstate does not exit error when bogus states are specified in top.sls.
@@ -48,6 +57,8 @@ configure appropriate tenant quantum network + default subnet.
 
 # done
 
+X salt-master sometimes hangs onto some state for a vm name across deploys - restarting master seems to resolve it.
+X configure quantum with br-int, br-ex, drop ctlplane
 X init-networking wasn't being run automatically on ovs nodes
 X instances get dhcp.
 X set quantum-ovs local_ip setting dynamically.

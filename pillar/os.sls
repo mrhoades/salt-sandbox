@@ -7,13 +7,15 @@ secrets:
   db_password: CHANGE_ME
   rabbit_password: guest
   horizon_secret_key: asdf
+  metadata_proxy_shared_secret: eieio
+
 endpoints:
-  db: 10.5.96.248
-  nova: 10.5.96.248
-  glance: 10.5.96.248
-  quantum: 10.5.96.248
-  keystone: 10.5.96.248
-  rabbit: 10.5.96.248
+  db: 10.5.243.13
+  nova: 10.5.243.13
+  glance: 10.5.243.13
+  quantum: 10.5.243.13
+  keystone: 10.5.243.13
+  rabbit: 10.5.243.13
 
 nova:
   libvirt_type: qemu
@@ -26,8 +28,8 @@ glance:
 
 quantum:
   public_interface: eth1
-  physical_bridge: br-ctlplane
-  physical_network: ctlplane
+  physical_bridge: br-ext
+  physical_network: br-ext
   fixed_range: "192.0.2.32/29"
   ovs_range: "192.0.2.0/24"
   tenant_network_type: gre

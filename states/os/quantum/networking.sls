@@ -4,5 +4,6 @@
 salt://scripts/init-networking:
   cmd:
     - script
+    - template: jinja
     - require:
       - pkg: python-netaddr

@@ -5,12 +5,15 @@ quantum_repo:
     - target: /opt/stack/quantum
     - require:
       - pkg: git
+      - pkg: python-pip
 
 pip install -i http://pypi.openstack.org/openstack -r /opt/stack/quantum/tools/pip-requires:
   cmd.run
+#    - require: quantum_repo
 
 pip install -i http://pypi.openstack.org/openstack /opt/stack/quantum:
   cmd.run
+#    - require: quantum_repo
 
 quantum_user:
   user.present:
@@ -50,10 +53,20 @@ rsync -avh /opt/stack/quantum/etc/quantum/rootwrap.d /etc/quantum:
   file:
     - managed
     - source: salt://os/quantum/etc/l3_agent.ini
+    - template: jinja
     - context:
         secrets: {{ pillar['secrets'] }}
         endpoints: {{ pillar['endpoints'] }}
         quantum: {{ pillar['quantum'] }}
+
+/etc/quantum/metadata_agent.ini:
+  file:
+    - managed
+    - source: salt://os/quantum/etc/metadata_agent.ini
+    - template: jinja
+    - context:
+        secrets: {{ pillar['secrets'] }}
+        endpoints: {{ pillar['endpoints'] }}
 
 /etc/quantum/dhcp_agent.ini:
   file:
