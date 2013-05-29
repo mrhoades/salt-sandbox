@@ -70,8 +70,14 @@ rsync -avh /opt/stack/nova/etc/nova/rootwrap.d /etc/nova:
     - require:
       - user: nova
 
-/var/lib/nova/instances:
+/var/lib/nova:
   file.directory:
     - user: nova
     - require:
       - user: nova
+
+/var/lib/nova/instances:
+  file.directory:
+    - user: nova
+    - require:
+      - file.directory: /var/lib/nova

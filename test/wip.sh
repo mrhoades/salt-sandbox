@@ -30,5 +30,6 @@ salt os-controller service.restart mysql
 
 # initialize openstack
 salt os-controller cmd.script salt://scripts/init-keystone
+salt os-controller cmd.script salt://scripts/init-nova
 salt os-controller cmd.script salt://scripts/init-glance
 salt os-controller cmd.script salt://scripts/init-quantum

@@ -1,5 +1,9 @@
 ## now
 
+- instances get metadata
+- instances can talk to each other
+- instances can talk to internet
+
 https://github.com/mseknibilel/OpenStack-Grizzly-Install-Guide/blob/OVS_MultiNode/OpenStack_Grizzly_Install_Guide.rst
 
 - change private addresses to come from 172.16.0.0/20
@@ -34,9 +38,6 @@ mkdir /var/log/quantum ?
                                          (internal id)
     ip netns exec qrouter-21ddd461-4a11-4c51-b867-f28d02f59580 ssh cirros@192.0.2.34
                           (router id)
-
-quantum security groups for icmp/ssh ?
-
 
 vms can ping+ssh to each other!
 vms get dhcp on default internal network, cloud-init times out
@@ -188,6 +189,7 @@ configure appropriate tenant quantum network + default subnet.
 
 # done
 
+X allow icmp and ssh access to vms by default
 X do nova-compute nodes need the 192. address?  yes - 192.168.122.0/24
 X run quantum-metadata-agent on network node
 X fix quantum-l3-agent on network node: The external network bridge 'br-ex' does not exist

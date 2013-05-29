@@ -10,12 +10,12 @@ secrets:
   metadata_proxy_shared_secret: eieio
 
 endpoints:
-  db: 10.5.251.136
-  nova: 10.5.251.136
-  glance: 10.5.251.136
-  quantum: 10.5.251.136
-  keystone: 10.5.251.136
-  rabbit: 10.5.251.136
+  db: 10.4.27.132
+  nova: 10.4.27.132
+  glance: 10.4.27.132
+  quantum: 10.4.27.132
+  keystone: 10.4.27.132
+  rabbit: 10.4.27.132
 
 nova:
   libvirt_type: qemu
