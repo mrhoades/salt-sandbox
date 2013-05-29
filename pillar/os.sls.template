@@ -28,8 +28,8 @@ glance:
 
 quantum:
   public_interface: eth1
-  physical_bridge: br-ext
-  physical_network: br-ext
+  physical_bridge: br-ex
+  physical_network: br-ex
   fixed_range: "192.0.2.32/29"
   ovs_range: "192.0.2.0/24"
   tenant_network_type: gre
